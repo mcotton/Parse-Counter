@@ -10,4 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *CounterLabel;
+
+- (IBAction)incButton:(id)sender;
+- (IBAction)decButton:(id)sender;
+
 @end
