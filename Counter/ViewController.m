@@ -18,15 +18,26 @@
 
 NSInteger *Counter;
 NSString *string;
+PFQuery *query;
+PFObject *gameScore;
+
 PFObject *testObject;
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    Counter = 0;
-    testObject = [PFObject objectWithClassName:@"Counter"];
     
+    // Get value from Parse
+    query = [PFQuery queryWithClassName:@"Counter"];
+    testObject = [query getObjectWithId:@"JbAERIsU64"];
+    
+    // Set label to value
+    CounterLabel.text = [testObject objectForKey:@"Count"];
+    
+    // Set counter so it resumes
+    Counter = [CounterLabel.text intValue];    
 }
 
 - (void)viewDidUnload
@@ -42,17 +53,17 @@ PFObject *testObject;
 }
 
 - (IBAction)incButton:(id)sender {
-    NSLog(@"+ Button was pushed");
+    //NSLog(@"+ Button was pushed");
     [self adjustCounter: 1];
 }
 
 - (IBAction)decButton:(id)sender {
-    NSLog(@"- Button was pushed");
+    //NSLog(@"- Button was pushed");
     [self adjustCounter: -1];
 }
 
 -(void)adjustCounter:(int)adjustment {
-    NSLog(@"adjustCounter was called");
+    //NSLog(@"adjustCounter was called");
     Counter = (int)Counter + adjustment;
     CounterLabel.text = [NSString stringWithFormat:@"%d", Counter];
 
