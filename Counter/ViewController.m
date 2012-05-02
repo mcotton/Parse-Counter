@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <Parse/Parse.h>
 
 @interface ViewController ()
 
@@ -17,12 +18,15 @@
 
 NSInteger *Counter;
 NSString *string;
+PFObject *testObject;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     Counter = 0;
+    testObject = [PFObject objectWithClassName:@"Counter"];
+    
 }
 
 - (void)viewDidUnload
@@ -51,6 +55,9 @@ NSString *string;
     NSLog(@"adjustCounter was called");
     Counter = (int)Counter + adjustment;
     CounterLabel.text = [NSString stringWithFormat:@"%d", Counter];
+
+    [testObject setObject:[NSString stringWithFormat:@"%d", Counter] forKey:@"Count"];
+    [testObject save];
 }
 
 @end
